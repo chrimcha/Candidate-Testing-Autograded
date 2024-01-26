@@ -1,5 +1,5 @@
 const input = require('readline-sync');
-//just adding a note so I can recommit this
+
 // TODO 2: modify your quiz app to ask 5 questions //
 
 // TODO 1.1a: Define candidateName // 
@@ -30,29 +30,30 @@ function askQuestion() {
 }
 
 function gradeQuiz(candidateAnswers) {
-
+  let numOfCorrectAnswers = 0;
   // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
   for (let i = 0; i < correctAnswers.length; i++) {
-   if (correctAnswers[i] !== candidateAnswers[i]) {
+   if (correctAnswers[i] !== candidateAnswers[i] && candidateAnswers[i].toUpperCase() !== correctAnswers[i].toUpperCase()) {
       console.log (`You answer: (${candidateAnswers[i]}) is INCORRECT, Correct answer: ${correctAnswers[i]}`);
     } else {
       console.log (`You answer: (${candidateAnswers[i]}) is CORRECT, Correct answer: ${correctAnswers[i]}`);
+      numOfCorrectAnswers += 1;
     }
   }
- 
-  // for (let i = 0; i < correctAnswers.length; i++) {
-  //   if (candidateAnswers === correctAnswers[i]) {
-  //     console.log (`You answer ${candidateAnswers} is CORRECT, Correct answer: ${correctAnswers[i]}`);
-  //   } else {
-  //     console.log (`You answer ${candidateAnswers} is INCORRECT, Correct answer: ${correctAnswers[i]}`);
-  //   }
-  // }
+  
+  let grade = numOfCorrectAnswers / questions.length * 100;  //TODO 3.2 use this variable to calculate the candidates score.
 
-  let grade;  //TODO 3.2 use this variable to calculate the candidates score.
-
+  if (grade < 80) {
+    console.log(`
+    ${candidateName}, you have FAILED the quiz! Please try again. Your grade: ${grade}%, Passing grade: 80%`);
+  } else {
+    console.log(`
+    ${candidateName}, you have PASSED the quiz! Great job! Your grade: ${grade}%, Passing grade: 80%`)
+  }
 
   return grade;
 }
+
 
 function runProgram() {
   askForName();
